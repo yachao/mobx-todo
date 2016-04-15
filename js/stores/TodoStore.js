@@ -20,6 +20,10 @@ class TodoStore {
 	del(todo) {
 		this.todos = this.todos.filter((item) => item != todo);
 	}
+
+	clearCompleted() {
+		this.todos = this.todos.filter((item) => !item.complete);
+	}
 }
 
 module.exports = new TodoStore();

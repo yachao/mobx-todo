@@ -3,7 +3,7 @@ import ToDoTextInput from './ToDoTextInput';
 import {observer} from "mobx-react";
 import TodoStore from '../stores/TodoStore';
 
-class TodoItem extends Component{
+@observer class TodoItem extends Component{
 	constructor(props){
 		super(props);
 	}
