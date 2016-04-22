@@ -2,6 +2,7 @@ import React, {Component, PropTypes} from 'react';
 import ToDoTextInput from './ToDoTextInput';
 import {observer} from "mobx-react";
 import TodoStore from '../stores/TodoStore';
+import classNames from 'classnames';
 
 @observer class TodoItem extends Component{
 	constructor(props){
@@ -19,7 +20,7 @@ import TodoStore from '../stores/TodoStore';
 	render(){
 		let todo = this.props.todo;
 		return (
-			<li id={todo.id}>
+			<li id={todo.id} className={classNames({'completed': todo.complete,'editing': this.state.isEditing})}>
 				<input
 					className="toggle"
 					type="checkbox"
