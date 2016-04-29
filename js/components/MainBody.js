@@ -9,10 +9,14 @@ import TodoStore from '../stores/TodoStore'
 			return null;
 		}
 		let areAllComplete = TodoStore.unfinishedTodoCount <= 0;
-		let todos = [];
-		TodoStore.visibleTodos.forEach(function(item){
-			todos.push(<TodoItem key={item.id} todo={item} />)
+		let todos = TodoStore.visibleTodos.sort(TodoStore[`sortBy${TodoStore.sortBy.type}`]).map(function(item){
+			return (<TodoItem key={item.id} todo={item} />)
 		});
+		TodoStore.sortBy.reversed ? todos = todos.reverse():null;
+
+		function toggleReverse(){
+			TodoStore.sortBy.reversed = !TodoStore.sortBy.reversed;
+		}
 
 		return (
 			<section>
@@ -26,8 +30,14 @@ import TodoStore from '../stores/TodoStore'
 					/>
 						all
 					</label>
-					<button onClick={()=>TodoStore.sortByDate()}>sort by date</button>
-					<button onClick={()=>TodoStore.sortByName()}>sort by name</button>
+					<button onClick={()=>{
+						TodoStore.sortBy.type = 'Date';
+						toggleReverse()
+					}}>sort by date</button>
+					<button onClick={()=>{
+						TodoStore.sortBy.type = 'Name';
+						toggleReverse()
+					}}>sort by name</button>
 				</div>
 				<ul className="todo-list" id="todoList">{todos}</ul>
 			</section>
