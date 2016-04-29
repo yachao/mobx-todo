@@ -1,6 +1,6 @@
-import {observable,computed} from 'mobx';
-import Immutable from 'immutable';
-import {Map} from 'immutable';
+import {observable,computed} from 'mobx'
+import Immutable from 'immutable'
+import {Map} from 'immutable'
 
 export const SHOW_ALL = 'show_all'
 export const SHOW_COMPLETED = 'show_completed'
@@ -51,9 +51,17 @@ class TodoStore {
 	}
 
 	sortByName(){
-		let nested = Immutable.fromJS(this.todos.toJSON());
-		console.log(nested)
+		this.todos = this.todos.sort((a, b) => a.text.localeCompare(b.text))
+	}
+
+	sortByDate(){
+		this.todos = this.todos.sort(function(a, b){
+			if(a.time < b.time) return -1
+			if(a.time > b.time) return 1
+			return 0
+		})
 	}
 }
 
-module.exports = new TodoStore();
+let todostore = new TodoStore();
+export default todostore;

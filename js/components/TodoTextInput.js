@@ -1,4 +1,4 @@
-import React, {Component, PropTypes} from 'react';
+import React, {Component, PropTypes} from 'react'
 
 let ENTER_KEY_CODE = 13;
 

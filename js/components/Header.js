@@ -1,6 +1,6 @@
-import React, {Component} from 'react';
-import TodoStore from '../stores/TodoStore';
-import ToDoTextInput from './ToDoTextInput';
+import React, {Component} from 'react'
+import TodoStore from '../stores/TodoStore'
+import ToDoTextInput from './ToDoTextInput'
 
 class Header extends Component {
 	_onSave(text){
@@ -8,7 +8,6 @@ class Header extends Component {
 			let date = new Date();
 			let id = date.getTime();
 			TodoStore.add({id: id, text: text, complete: false,time:date});
-			console.log(TodoStore.todos.toJSON());
 		}
 	}
 	

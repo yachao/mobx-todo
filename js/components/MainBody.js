@@ -1,7 +1,7 @@
-import React, {Component} from 'react';
-import TodoItem from './TodoItem';
-import {observer} from 'mobx-react';
-import TodoStore from '../stores/TodoStore';
+import React, {Component} from 'react'
+import TodoItem from './TodoItem'
+import {observer} from 'mobx-react'
+import TodoStore from '../stores/TodoStore'
 
 @observer class MainBody extends Component{
 	render(){
@@ -17,17 +17,19 @@ import TodoStore from '../stores/TodoStore';
 		return (
 			<section>
 				<div className="option">
-					<input
-						id="toggle-all"
+					<label>
+						<input
+						id="toggleAll"
 						type="checkbox"
 						onChange={this._onToggleCompleteAll.bind(this,areAllComplete)}
 						checked={areAllComplete ? 'checked' : ''}
 					/>
-					<button onClick={()=>this._onSortByName()}>sort by name</button>
-					<button>sort by date</button>
+						all
+					</label>
+					<button onClick={()=>TodoStore.sortByDate()}>sort by date</button>
+					<button onClick={()=>TodoStore.sortByName()}>sort by name</button>
 				</div>
-				<ul id="todo-list">{todos}</ul>
-				<div><a href="javascript:;" onClick={this._onFilter.bind(this,'show_all')}>all</a> <a href="javascript:;" onClick={this._onFilter.bind(this,'show_completed')}>completed</a> <a href="javascript:;" onClick={this._onFilter.bind(this,'show_active')}>active</a></div>
+				<ul className="todo-list" id="todoList">{todos}</ul>
 			</section>
 		)
 	}
@@ -36,12 +38,6 @@ import TodoStore from '../stores/TodoStore';
 		TodoStore.todos.forEach(function(todo){
 			todo.complete = !areAllComplete;
 		})
-	}
-	_onSortByName(){
-		TodoStore.sortByName();
-	}
-	_onFilter(state){
-		TodoStore.setFilter(state);
 	}
 }
 
