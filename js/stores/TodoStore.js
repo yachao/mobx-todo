@@ -16,10 +16,16 @@ class TodoStore {
 	@observable filter = SHOW_ALL;
 	@observable todos;
 
+	@observable sortBy = {
+		reversed:false,
+		type:'Default' //默认排序
+	}
+
 	constructor(){
 		this.todos = [
 			{id: 1, text: 'do something', complete: false, time: new Date('2016-04-13')}
-		]
+		];
+
 	}
 
 	@computed get finishedTodoCount() {
@@ -50,16 +56,19 @@ class TodoStore {
 		this.filter = filter;
 	}
 
-	sortByName(){
-		this.todos = this.todos.sort((a, b) => a.text.localeCompare(b.text))
+
+	sortByDefault(a,b){
+		return 1;
 	}
 
-	sortByDate(){
-		this.todos = this.todos.sort(function(a, b){
-			if(a.time < b.time) return -1
-			if(a.time > b.time) return 1
-			return 0
-		})
+	sortByName(a,b){
+		return a.text.localeCompare(b.text)
+	}
+
+	sortByDate(a,b){
+		if(a.time < b.time) return -1
+		if(a.time > b.time) return 1
+		return 0
 	}
 }
 
