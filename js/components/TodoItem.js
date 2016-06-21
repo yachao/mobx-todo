@@ -4,6 +4,7 @@ import {observer} from "mobx-react"
 import TodoStore from '../stores/TodoStore'
 import classNames from 'classnames'
 import DevTools from 'mobx-react-devtools'
+import Util from '../Util.js'
 
 @observer class TodoItem extends Component{
 	constructor(props){
@@ -48,18 +49,34 @@ import DevTools from 'mobx-react-devtools'
 	}
 
 	_onSave(text){
-		let originalVal = this.props.todo.text;
+		let that = this,
+			todo = that.props.todo,
+			originalVal = todo.text,
+			newDate = new Date();
+
 		if(text.trim()){
-			this.props.todo.text = text;
+			TodoStore.update(todo.id, {cont: text, time: newDate}, function(data){
+				if(data.status){
+					todo.text = text;
+					todo.time = newDate;
+					Util.toast('update success');
+				}else{
+					Util.toast('failed');
+				}
+			});
 		}else{
-			this.props.todo.text = originalVal;
+			todo.text = originalVal;
 		}
-		this.props.todo.time = new Date();
-		this.setState({isEditing: false});
+		that.setState({isEditing: false});
 	}
 
 	_onToggle(){
-		this.props.todo.complete = !this.props.todo.complete;
+		let that = this,
+			todo = that.props.todo;
+
+		TodoStore.update(todo.id, {state: !todo.complete}, function(data){
+			if(data.status) todo.complete = !todo.complete;
+		});
 	}
 }
 

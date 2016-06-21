@@ -1,5 +1,7 @@
 import {observable,computed} from 'mobx'
 import $ from '../lib/Zepto.js'
+import OPT from '../sync/syncData.js'
+import Util from '../Util.js'
 
 export const SHOW_ALL = 'show_all'
 export const SHOW_COMPLETED = 'show_completed'
@@ -23,8 +25,7 @@ class TodoStore {
 	constructor(){
 		let that = this;
 		this.todos = [];
-		$.getJSON('http://10.1.56.107:3000/todos?callback=?', function(data){
-			console.log(JSON.stringify(data));
+		OPT.getAll((data) => {
 			that.todos = data;
 		});
 	}
@@ -42,24 +43,50 @@ class TodoStore {
 	}
 
 	add(todo) {
-		this.todos.unshift(todo);
+		OPT.addItem({item: todo}, (data) => {
+			if(data.status){
+				Util.toast('add success');
+				this.todos.unshift(todo);
+			}else{
+				Util.toast('failed');
+			}
+		});
 	}
 
 	del(todo) {
-		this.todos = this.todos.filter((item) => item != todo);
+		OPT.deleteItem({ids: [todo.id]}, (data) => {
+			if(data.status){
+				Util.toast('delete success');
+				this.todos = this.todos.filter((item) => item != todo);
+			}else{
+				Util.toast('failed');
+			}
+		});
+	}
+
+	update(id, para, cb){
+		OPT.updateItem(id, para, cb);
 	}
 
 	clearCompleted() {
-		this.todos = this.todos.filter((item) => !item.complete);
+		let ids = [];
+		this.todos.map((item) => {
+			if(item.complete) ids.push(item.id)
+		});
+		OPT.deleteItem({ids: ids}, (data) => {
+			if(data.status){
+				Util.toast('delete success');
+				this.todos = this.todos.filter((item) => !item.complete);
+			}
+		});
 	}
 
 	setFilter(filter) {
 		this.filter = filter;
 	}
 
-
 	sortByDefault(a,b){
-		return 1;
+		return -1;
 	}
 
 	sortByName(a,b){
