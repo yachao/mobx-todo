@@ -1,6 +1,5 @@
 import {observable,computed} from 'mobx'
-import Immutable from 'immutable'
-import {Map} from 'immutable'
+import $ from '../lib/Zepto.js'
 
 export const SHOW_ALL = 'show_all'
 export const SHOW_COMPLETED = 'show_completed'
@@ -22,10 +21,12 @@ class TodoStore {
 	}
 
 	constructor(){
-		this.todos = [
-			{id: 1, text: 'do something', complete: false, time: new Date('2016-04-13')}
-		];
-
+		let that = this;
+		this.todos = [];
+		$.getJSON('http://10.1.56.107:3000/todos?callback=?', function(data){
+			console.log(JSON.stringify(data));
+			that.todos = data;
+		});
 	}
 
 	@computed get finishedTodoCount() {
