@@ -5,10 +5,10 @@ mobx-todo
 a React todoList APP use MobX
 
 ### How to run it?
-######FrontEnd------
+######FrontEnd
     $ npm install  
     $ npm run dev
     
-######BackEnd------
+######BackEnd
     $ node server.js
 
