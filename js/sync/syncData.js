@@ -25,7 +25,7 @@ let OPT = {
 		}).done(function(data){
 			cb(data);
 		}).fail(function(){
-			Util.toast('网络在开小差，请稍后再试哦！');
+			Util.toast('Connection failed.');
 		}).always(function(){
 			Util.hideLoading();
 		});
@@ -45,7 +45,7 @@ let OPT = {
 		}).done(function(data){
 			cb(data);
 		}).fail(function(){
-			Util.toast('网络在开小差，请稍后再试哦！');
+			Util.toast('Connection failed.');
 		}).always(function(){
 			Util.hideLoading();
 		});
@@ -65,7 +65,7 @@ let OPT = {
 		}).done(function(data){
 			cb(data);
 		}).fail(function(){
-			Util.toast('网络在开小差，请稍后再试哦！');
+			Util.toast('Connection failed.');
 		}).always(function(){
 			Util.hideLoading();
 		});

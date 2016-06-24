@@ -11,7 +11,7 @@ let Util = {
 		}
 		return result[1];
 	},
-	//当前异步状态
+	//sync state
 	isSending: function(){
 		return sending;
 	},
@@ -22,7 +22,7 @@ let Util = {
 	 */
 	showLoading: function(loadingText){
 		sending = true;
-		loadingText = loadingText ? loadingText : '正在加载...';
+		loadingText = loadingText ? loadingText : 'loading...';
 		$('body').append('<div id="loading" class="loading-layer"><div class="loading-activity"><div class="loading-icon-activity"><div class="loading-gif"></div></div><div class="loading-text-activity">'+loadingText+'</div></div></div>');
 	},
 	//hide loading
@@ -31,7 +31,7 @@ let Util = {
 		$('#loading').remove();
 	},
 	/**
-	 * @description toast弹框
+	 * @description toast
 	 * @param {string} text
 	 * @param {function} callback
 	 * @return null
