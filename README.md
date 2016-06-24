@@ -10,5 +10,7 @@ A todolist APP built with React,MobX and the backend with nodejs,expressjs,mongo
     $ npm run dev
     
 ######BackEnd
-    $ node server.js
+    $ npm run server
+    
+Open http://localhost:3000 in your browser.
 
