@@ -1,7 +1,7 @@
 import Util from '../Util.js'
 
 const ENV = 'local';
-let SERVER = ENV === 'local' ? 'http://10.1.56.107:3000/' : '';
+let SERVER = ENV === 'local' ? 'http://localhost:3000/' : '';
 
 let OPT = {
 	//select all
