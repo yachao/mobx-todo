@@ -12,6 +12,7 @@ class ToDoTextInput extends Component {
 		id: PropTypes.string,
 		placeholder: PropTypes.string,
 		onSave: PropTypes.func.isRequired,
+		onFilter: PropTypes.func.isRequired,
 		value: PropTypes.string
 	}
 
@@ -27,8 +28,8 @@ class ToDoTextInput extends Component {
 				type="text" 
 				placeholder={this.props.placeholder}
 				onChange={this._onChange.bind(this)}
-				onBlur={()=>this._save()}
-				onKeyDown={this._onKeyDown.bind(this)}
+				// onBlur={()=>this._save()}
+				onKeyUp={this._onKeyUp.bind(this)}
 				value={this.state.value}
 				autoFocus={true}
 			/>
@@ -48,9 +49,11 @@ class ToDoTextInput extends Component {
 		});
 	}
 
-	_onKeyDown(event){
-		if (event.keyCode === ENTER_KEY_CODE) {
+	_onKeyUp(event){
+		if (event.keyCode === ENTER_KEY_CODE) {	//Enter to save
 			this._save();
+		}else{	//Fitler result
+			this.props.onFilter(event.target.value);
 		}
 	}
 }

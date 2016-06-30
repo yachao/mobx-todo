@@ -2,6 +2,8 @@ var express = require('express')
 var app = express()
 var Todos = require('./db').Todos
 
+app.use(express.static('.'));
+
 //init list
 app.get('/findall', function(req, res){
 	Todos.find({}, function(err, todos_data){

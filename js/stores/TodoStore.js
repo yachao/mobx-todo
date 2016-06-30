@@ -15,6 +15,7 @@ const TODO_FILTERS = {
 
 class TodoStore {
 	@observable filter = SHOW_ALL;
+	@observable key = '';
 	@observable todos;
 
 	@observable sortBy = {
@@ -39,7 +40,8 @@ class TodoStore {
 	}
 
 	@computed get visibleTodos() {
-		return this.todos.filter(TODO_FILTERS[this.filter])
+		let pattern = new RegExp(this.key, 'g');
+		return this.todos.filter(TODO_FILTERS[this.filter]).filter(todo => pattern.test(todo.text)).sort(this.sortBy.type);
 	}
 
 	add(todo) {

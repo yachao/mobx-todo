@@ -16,6 +16,8 @@
     "babel-preset-stage-1": "^6.5.0",
     "browser-sync": "^2.11.1",
     "express": "^4.14.0",
+    "mobx": "^2.3.3",
+    "mobx-react": "^3.4.0",
     "mobx-react-devtools": "^4.0.2",
     "mongodb": "^2.1.18",
     "mongoose": "^4.5.1",

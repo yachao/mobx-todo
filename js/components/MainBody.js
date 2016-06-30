@@ -9,9 +9,10 @@ import TodoStore from '../stores/TodoStore'
 			return null;
 		}
 		let areAllComplete = TodoStore.unfinishedTodoCount <= 0;
-		let todos = TodoStore.visibleTodos.sort(TodoStore[`sortBy${TodoStore.sortBy.type}`]).map(function(item){
+		let todos = TodoStore.visibleTodos.map(function(item){
 			return (<TodoItem key={item.id} todo={item} />)
 		});
+
 		TodoStore.sortBy.reversed ? todos = todos.reverse():null;
 
 		function toggleReverse(){

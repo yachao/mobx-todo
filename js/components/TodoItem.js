@@ -25,7 +25,7 @@ import Util from '../Util.js'
 			<li id={todo.id} className={classNames({'completed': todo.complete,'editing': this.state.isEditing})}>
 				<button className="Del" onClick={()=>this._onDelete()}>Del</button>
 				{this.state.isEditing ? 
-					<ToDoTextInput onSave={this._onSave.bind(this)} className="edit" value={todo.text}/> : null}
+					<ToDoTextInput onSave={this._onSave.bind(this)} className="edit" value={todo.text} onFilter={()=>null} /> : null}
 				<input
 					className="toggle"
 					type="checkbox"
