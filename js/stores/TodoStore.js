@@ -2,6 +2,7 @@ import {observable,computed} from 'mobx'
 import $ from '../lib/Zepto.js'
 import OPT from '../sync/syncData.js'
 import Util from '../Util.js'
+import mobx from 'mobx'
 
 export const SHOW_ALL = 'show_all'
 export const SHOW_COMPLETED = 'show_completed'
@@ -40,7 +41,7 @@ class TodoStore {
 	}
 
 	@computed get visibleTodos() {
-		let pattern = new RegExp(this.key, 'g');
+		let pattern = new RegExp(this.key);
 		return this.todos.filter(TODO_FILTERS[this.filter]).filter(todo => pattern.test(todo.text)).sort(this.sortBy.type);
 	}
 
