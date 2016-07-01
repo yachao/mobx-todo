@@ -48,7 +48,7 @@ class TodoStore {
 	add(todo) {
 		OPT.addItem({item: todo}, (data) => {
 			if(data.status){
-				Util.toast('add success');
+				// Util.toast('add success');
 				this.todos.unshift(todo);
 			}else{
 				Util.toast('failed');
@@ -59,7 +59,7 @@ class TodoStore {
 	del(todo) {
 		OPT.deleteItem({ids: [todo.id]}, (data) => {
 			if(data.status){
-				Util.toast('delete success');
+				// Util.toast('delete success');
 				this.todos = this.todos.filter((item) => item != todo);
 			}else{
 				Util.toast('failed');
@@ -71,6 +71,18 @@ class TodoStore {
 		OPT.updateItem(id, para, cb);
 	}
 
+	changeAllState(state){
+		OPT.changeAllState({state: state}, (data) => {
+			if(data.status){
+				this.todos.forEach(function(todo){
+					todo.complete = state;
+				});
+			}else{
+				Util.toast('failed');
+			}
+		});
+	}
+
 	clearCompleted() {
 		let ids = [];
 		this.todos.map((item) => {
@@ -78,7 +90,7 @@ class TodoStore {
 		});
 		OPT.deleteItem({ids: ids}, (data) => {
 			if(data.status){
-				Util.toast('delete success');
+				// Util.toast('delete success');
 				this.todos = this.todos.filter((item) => !item.complete);
 			}
 		});

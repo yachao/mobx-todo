@@ -51,6 +51,26 @@ let OPT = {
 		});
 	},
 
+	//toggle all state
+	changeAllState: (para, cb) =>{
+		$.ajax({
+		    url: SERVER + 'changeallstate?callback=?',
+		    type: 'GET',
+		    dataType: 'JSON',
+		    data: para,
+		    beforeSend: function(){
+		        Util.showLoading();
+		    },
+		    timeout: 20000
+		}).done(function(data){
+			cb(data);
+		}).fail(function(){
+			Util.toast('Connection failed.');
+		}).always(function(){
+			Util.hideLoading();
+		});
+	},
+
 	//delete item
 	deleteItem: (para, cb) =>{
 		$.ajax({

@@ -20,7 +20,7 @@ import TodoStore from '../stores/TodoStore'
 		}
 
 		return (
-			<section>
+			<section className="content">
 				<div className="option">
 					<label>
 						<input
@@ -46,9 +46,7 @@ import TodoStore from '../stores/TodoStore'
 	}
 
 	_onToggleCompleteAll(areAllComplete){
-		TodoStore.todos.forEach(function(todo){
-			todo.complete = !areAllComplete;
-		})
+		TodoStore.changeAllState(!areAllComplete);
 	}
 }
 

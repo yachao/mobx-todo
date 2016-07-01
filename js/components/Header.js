@@ -19,13 +19,15 @@ class Header extends Component {
 	render(){
 		return (
 			<header id="header">
-				<h1>todos</h1>
-				<ToDoTextInput
-					id="addTodo"
-					placeholder="Create a new item"
-					onSave={this._onSave.bind(this)}
-					onFilter={this._onFilter.bind(this)}
-				/>
+				<div className="lay"></div>
+				<div className="todobar">
+					<ToDoTextInput
+						id="addTodo"
+						placeholder="Create a new item"
+						onSave={this._onSave.bind(this)}
+						onFilter={this._onFilter.bind(this)}
+					/>
+				</div>
 			</header>
 		);
 	}

@@ -22,9 +22,9 @@ import Util from '../Util.js'
 	render(){
 		let todo = this.props.todo;
 		return (
-			<li id={todo.id} className={classNames({'completed': todo.complete,'editing': this.state.isEditing})}>
+			<li id={todo.id} className={classNames({'completed': todo.complete,'editing': this.state.isEditing && !todo.complete})} onDoubleClick={()=>this._onEdit()}>
 				<button className="Del" onClick={()=>this._onDelete()}>Del</button>
-				{this.state.isEditing ? 
+				{this.state.isEditing && !todo.complete ? 
 					<ToDoTextInput onSave={this._onSave.bind(this)} className="edit" value={todo.text} onFilter={()=>null} /> : null}
 				<input
 					className="toggle"
@@ -32,7 +32,7 @@ import Util from '../Util.js'
 					checked={todo.complete}
 					onChange={()=>this._onToggle()}
 				/>
-				<label onDoubleClick={()=>this._onEdit()}>{todo.text}</label>
+				<label>{todo.text}</label>
 				<DevTools/>
 			</li>
 		)
@@ -59,7 +59,7 @@ import Util from '../Util.js'
 				if(data.status){
 					todo.text = text;
 					todo.time = newDate;
-					Util.toast('update success');
+					// Util.toast('update success');
 				}else{
 					Util.toast('failed');
 				}

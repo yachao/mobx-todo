@@ -48,6 +48,19 @@ app.get('/update/:id', function(req, res){
 	})
 })
 
+//toggle all state
+app.get('/changeallstate', function(req, res){
+	var state = req.query.state === 'true';
+	Todos.update({complete: !state}, {complete: state}, {multi: true}, function(err, num){
+		if(!err){
+			res.jsonp({status: 1, message: 'updated'});
+		}else{
+			res.send(err)
+			res.jsonp({status: 0, message: 'failed'});
+		}
+	})
+})
+
 //del item
 app.get('/del', function(req, res){
 	var idsArray = req.query.ids;

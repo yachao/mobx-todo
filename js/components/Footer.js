@@ -42,7 +42,7 @@ const FILTER_TITLES = {
 		}
 
 		return (
-			<section>
+			<section className="bottom">
 				<ul className="filter-list">
 					{[SHOW_ALL, SHOW_ACTIVE, SHOW_COMPLETED].map(filter =>
 						<li key={filter}>
