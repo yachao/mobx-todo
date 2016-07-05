@@ -42,7 +42,7 @@ class TodoStore {
 
 	@computed get visibleTodos() {
 		let pattern = new RegExp(this.key);
-		return this.todos.filter(TODO_FILTERS[this.filter]).filter(todo => pattern.test(todo.text)).sort(this.sortBy.type);
+		return this.todos.filter(TODO_FILTERS[this.filter]).filter(todo => pattern.test(todo.text)).sort(this[`sortBy${this.sortBy.type}`]);
 	}
 
 	add(todo) {
