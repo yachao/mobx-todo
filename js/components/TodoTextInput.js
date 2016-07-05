@@ -28,7 +28,7 @@ class ToDoTextInput extends Component {
 				type="text" 
 				placeholder={this.props.placeholder}
 				onChange={this._onChange.bind(this)}
-				// onBlur={()=>this._save()}
+				onBlur={()=>this._save()}
 				onKeyUp={this._onKeyUp.bind(this)}
 				value={this.state.value}
 				autoFocus={true}

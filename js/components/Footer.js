@@ -13,8 +13,7 @@ const FILTER_TITLES = {
 	renderFilterLink(store, filter){
 		const text = FILTER_TITLES[filter];
 		return (
-			<a className={classnames({'selected': filter == store.filter})}
-				href="javascript:;"
+			<a href="javascript:;"
 				onClick={()=>store.setFilter(filter)}>
 				{text}
 			</a>
@@ -45,7 +44,7 @@ const FILTER_TITLES = {
 			<section className="bottom">
 				<ul className="filter-list">
 					{[SHOW_ALL, SHOW_ACTIVE, SHOW_COMPLETED].map(filter =>
-						<li key={filter}>
+						<li key={filter} className={classnames({'selected': filter == TodoStore.filter})}>
 							{this.renderFilterLink(TodoStore, filter)}
 						</li>
 					)}

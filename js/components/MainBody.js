@@ -22,14 +22,18 @@ import TodoStore from '../stores/TodoStore'
 		return (
 			<section className="content">
 				<div className="option">
-					<label>
-						<input
-						id="toggleAll"
-						type="checkbox"
-						onChange={this._onToggleCompleteAll.bind(this,areAllComplete)}
-						checked={areAllComplete ? 'checked' : ''}
-					/>
-						all
+					<label className="chk-label">
+						<div className="chk">
+							<input
+								className="chk-input"
+								id="toggleAll"
+								type="checkbox"
+								onChange={this._onToggleCompleteAll.bind(this,areAllComplete)}
+								checked={areAllComplete ? 'checked' : ''}
+							/>
+							<i className="chk-icon"></i>
+						</div>
+						All
 					</label>
 					<button onClick={()=>{
 						TodoStore.sortBy.type = 'Date';

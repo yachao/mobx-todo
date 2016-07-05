@@ -22,17 +22,21 @@ import Util from '../Util.js'
 	render(){
 		let todo = this.props.todo;
 		return (
-			<li id={todo.id} className={classNames({'completed': todo.complete,'editing': this.state.isEditing && !todo.complete})} onDoubleClick={()=>this._onEdit()}>
-				<button className="Del" onClick={()=>this._onDelete()}>Del</button>
-				{this.state.isEditing && !todo.complete ? 
-					<ToDoTextInput onSave={this._onSave.bind(this)} className="edit" value={todo.text} onFilter={()=>null} /> : null}
-				<input
-					className="toggle"
-					type="checkbox"
-					checked={todo.complete}
-					onChange={()=>this._onToggle()}
-				/>
-				<label>{todo.text}</label>
+			<li id={todo.id} className={classNames('flex', {'completed': todo.complete,'editing': this.state.isEditing && !todo.complete})}>
+				<label className="todo-lbl">
+					<div className="chk">
+						<input
+							className="chk-input"
+							type="checkbox"
+							checked={todo.complete}
+							onChange={()=>this._onToggle()}
+						/>
+						<i className="chk-icon"></i>
+					</div>
+				</label>
+				<p className="todo-text" onDoubleClick={()=>this._onEdit()}>{todo.text}</p>
+				<i className="delete" onClick={()=>this._onDelete()}></i>
+				{this.state.isEditing && !todo.complete ? <ToDoTextInput onSave={this._onSave.bind(this)} className="edit" value={todo.text} onFilter={()=>null} /> : null}
 				<DevTools/>
 			</li>
 		)
