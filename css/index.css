@@ -17,12 +17,12 @@ header{position:relative;height:178px;background:url("http://zcblog.net/resource
 .todo-list li{position:relative;padding:5px 0;line-height:25px;border-bottom:1px solid #F1F1F1;overflow:hidden;}
 .chk{display:inline-block;padding-right:10px;}
 .chk-input{position:absolute;left:-9999em;}
-.completed label{color:#999;}
 .chk-icon:before,.delete:before{display:inline-block;font-family:"weui";content:"\EA01";color:#C9C9C9;font-size:23px;font-style:normal;vertical-align:bottom;cursor:pointer;}
 .chk-input:checked + .chk-icon:before{content:"\EA06";color:#09BB07;}
 .delete:before{content:"\EA0F";color:#F76260;font-size:22px;}
 .todo-label{position:relative;}
-.todo-text{width:90%;padding-right:10px;line-height:1;overflow:hidden;display:-webkit-box;-webkit-line-clamp:1;text-overflow:ellipsis;-webkit-box-orient:vertical;}
+.todo-text{width:90%;padding-right:10px;height:25px;line-height:25px;overflow:hidden;display:-webkit-box;-webkit-line-clamp:1;text-overflow:ellipsis;-webkit-box-orient:vertical;word-break:break-all;}
+.completed .todo-text{color:#999;}
 .editing .edit{box-sizing:border-box;position:absolute;left:0;top:0;width:100%;height:100%;padding:0 1em;border:0;font-size:18px;color:#333;}
 .bottom{padding:0 20px 20px;}
 .filter-list{overflow:hidden;}
