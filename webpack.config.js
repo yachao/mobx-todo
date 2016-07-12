@@ -2,7 +2,7 @@ var webpack = require('webpack');
 
 module.exports = {
 	entry: {
-		bundle: './js/app.js'
+		bundle: ['babel-polyfill', './js/app.js']
 	},
 	output: {
 		path: __dirname + '/dist/js',
@@ -19,18 +19,19 @@ module.exports = {
 				test: /\.js?$/,
 				loader: 'babel',
 				exclude: /node_modules/
-				// query: {
-				// 	presets: ['es2015', 'react', 'stage-1']
-				// }
 			}
 		]
-	}
-	// plugins: [
- //  //       new webpack.optimize.UglifyJsPlugin({
-	// 	//     compress: {
-	// 	//         warnings: false
-	// 	//     }
-	// 	// })
-	// 	['transform-decorators-legacy']
- //    ]
+	},
+	plugins: [
+		new webpack.DefinePlugin({
+		  'process.env': { 
+		     NODE_ENV: JSON.stringify('production') 
+		   }
+		}),
+        new webpack.optimize.UglifyJsPlugin({
+		    compress: {
+		        warnings: false
+		    }
+		})
+    ]
 }

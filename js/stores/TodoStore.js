@@ -20,8 +20,8 @@ class TodoStore {
 	@observable todos;
 
 	@observable sortBy = {
-		reversed:false,
-		type:'Default' //默认排序
+		reversed: false,
+		type: 'Default' //默认排序
 	}
 
 	constructor(){
@@ -46,7 +46,7 @@ class TodoStore {
 	}
 
 	add(todo) {
-		OPT.addItem({item: todo}, (data) => {
+		OPT.addItem(todo, (data) => {
 			if(data.status){
 				// Util.toast('add success');
 				this.todos.unshift(todo);
@@ -57,7 +57,7 @@ class TodoStore {
 	}
 
 	del(todo) {
-		OPT.deleteItem({ids: [todo.id]}, (data) => {
+		OPT.deleteItem([todo.id], (data) => {
 			if(data.status){
 				// Util.toast('delete success');
 				this.todos = this.todos.filter((item) => item != todo);
@@ -72,7 +72,7 @@ class TodoStore {
 	}
 
 	changeAllState(state){
-		OPT.changeAllState({state: state}, (data) => {
+		OPT.changeAllState(state, (data) => {
 			if(data.status){
 				this.todos.forEach(function(todo){
 					todo.complete = state;
@@ -88,7 +88,7 @@ class TodoStore {
 		this.todos.map((item) => {
 			if(item.complete) ids.push(item.id)
 		});
-		OPT.deleteItem({ids: ids}, (data) => {
+		OPT.deleteItem(ids, (data) => {
 			if(data.status){
 				// Util.toast('delete success');
 				this.todos = this.todos.filter((item) => !item.complete);

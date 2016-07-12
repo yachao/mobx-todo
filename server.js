@@ -4,72 +4,82 @@ var Todos = require('./db').Todos
 
 app.use(express.static('.'));
 
+app.use(function(req, res, next) {
+	res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
+	res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+	next();
+});
+
 //init list
 app.get('/findall', function(req, res){
-	Todos.find({}, function(err, todos_data){
+	Todos.find({}).
+	sort({time: -1}).
+	exec(function(err, todos_data){
 		if(err) res.send(err)
-		res.jsonp(todos_data);
-	}).sort({time: -1})
+		res.json(todos_data);
+	})
 })
 
 //add item
 app.get('/add', function(req, res){
-	var todo_data = new Todos(req.query.item);
+	var query = JSON.parse(req.query.item);
+	var todo_data = new Todos(query);
 	todo_data.save(function(err){
 		if(!err){
-			res.jsonp({status: 1, message: 'saved'});
+			res.json({status: 1, message: 'saved'});
 		}else{
 			res.send(err)
-			res.jsonp({status: 0, message: 'failed'});
+			res.json({status: 0, message: 'failed'});
 		}
 	})
 })
 
 //update item
-app.get('/update/:id', function(req, res){
-	var state = req.query.state,
-		cont = req.query.cont,
-		time = req.query.time;
+app.put('/update/:id', function(req, res){
+	var query = JSON.parse(req.query.para);
+	var state = query.state,
+		cont = query.cont,
+		time = query.time;
 	Todos.findOne({id: req.params.id}, function(err, todo_data){
 		if(err) res.send(err);
-		if(state) todo_data.complete = state;
+		if(state !== 'underfined') todo_data.complete = state;
 		if(cont){
 			todo_data.text = cont;
 			todo_data.time = time;
 		}
 		todo_data.save(function(err){
 			if(!err){
-				res.jsonp({status: 1, message: 'updated'});
+				res.json({status: 1, message: 'updated'});
 			}else{
 				res.send(err)
-				res.jsonp({status: 0, message: 'failed'});
+				res.json({status: 0, message: 'failed'});
 			}
 		})
 	})
 })
 
 //toggle all state
-app.get('/changeallstate', function(req, res){
+app.put('/changeallstate', function(req, res){
 	var state = req.query.state === 'true';
 	Todos.update({complete: !state}, {complete: state}, {multi: true}, function(err, num){
 		if(!err){
-			res.jsonp({status: 1, message: 'updated'});
+			res.json({status: 1, message: 'updated'});
 		}else{
 			res.send(err)
-			res.jsonp({status: 0, message: 'failed'});
+			res.json({status: 0, message: 'failed'});
 		}
 	})
 })
 
 //del item
-app.get('/del', function(req, res){
-	var idsArray = req.query.ids;
+app.delete('/del', function(req, res){
+	var idsArray = req.query.ids.split(',');
 	Todos.remove({id: {$in: idsArray}}, function(err){
 		if(!err){
-			res.jsonp({status: 1, message: 'deleted'});
+			res.json({status: 1, message: 'deleted'});
 		}else{
 			res.send(err)
-			res.jsonp({status: 0, message: 'failed'});
+			res.json({status: 0, message: 'failed'});
 		}
 	})
 })
