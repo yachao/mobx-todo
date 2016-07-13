@@ -21,6 +21,8 @@ import Util from '../Util.js'
 
 	render(){
 		let todo = this.props.todo;
+		let date = new Date(todo.time);
+		let formatDate = date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate();
 		return (
 			<li id={todo.id} className={classNames('flex', {'completed': todo.complete,'editing': this.state.isEditing && !todo.complete})}>
 				<label className="todo-lbl">
@@ -62,7 +64,7 @@ import Util from '../Util.js'
 			TodoStore.update(todo.id, {cont: text, time: newDate}, function(data){
 				if(data.status){
 					todo.text = text;
-					todo.time = newDate;
+					todo.time = newDate.toISOString();
 					// Util.toast('update success');
 				}else{
 					Util.toast('failed');

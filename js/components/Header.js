@@ -5,8 +5,10 @@ import ToDoTextInput from './ToDoTextInput'
 class Header extends Component {
 	_onSave(text){
 		if (text.trim()) {
-			let date = new Date();
-			let id = date.getTime();
+			let date = new Date(),
+				dateStr = date.toISOString(),
+				id = date.getTime();
+			console.log(dateStr);
 			TodoStore.add({id: id, text: text, complete: false,time:date});
 			TodoStore.key = '';
 		}
